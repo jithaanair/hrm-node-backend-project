@@ -70,7 +70,7 @@ if (config.env !== 'production') {
 const port = process.env.PORT || 5000;
 
 
-app.listen(port, function(err) {
+app.listen(port,function(err) {
   logger.info('PORT Connected on: ' + port);
 });
 
