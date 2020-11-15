@@ -1,0 +1,34 @@
+{
+  "name": "hrm-node-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "sever.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Feby",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.780.0",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "helmet": "^4.1.1",
+    "http": "0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
+    "mailgun-js": "^0.22.0",
+    "mongoose": "^5.10.7",
+    "mongoose-timestamp": "^0.6.0",
+    "mongoose-timestamp2": "^0.1.10",
+    "morgan": "^1.10.0",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "path": "^0.12.7",
+    "winston": "^3.3.0"
+  }
+}

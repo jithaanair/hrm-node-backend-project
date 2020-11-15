@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>
+        <%= subject %>
+    </title>
+    <%- style %>
+</head>
+
+<body class="">
+    <table border="0" cellpadding="0" cellspacing="0" class="body">
+        <tr>
+            <td>&nbsp;</td>
+            <td class="container">
+                <div class="content">
+
+                    <table class="main">
+
+                        <!-- START MAIN CONTENT AREA -->
+                        <tr>
+                            <td class="wrapper">
+                                <table border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td>
+                                            <h2>Hey
+                                                <%= user.first_name %>!</h2>
+
+                                            <p>You requested a new password.
+
+                                                <p>
+                                                    <b>Password:</b>
+                                                    <%= user.pw %>
+                                                        <br>
+
+                                                        <p>Please change your password after your next login</p>
+
+                                                        <p>Best,
+                                                            <br>your Startup Team</p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>
+        <%= subject %>
+    </title>
+    <%- style %>
+</head>
+
+<body class="">
+    <table border="0" cellpadding="0" cellspacing="0" class="body">
+        <tr>
+            <td>&nbsp;</td>
+            <td class="container">
+                <div class="content">
+
+                    <table class="main">
+
+                        <!-- START MAIN CONTENT AREA -->
+                        <tr>
+                            <td class="wrapper">
+                                <table border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td>
+                                            <h2>Hey
+                                                <%= user.first_name %>!</h2>
+
+                                            <p>Welcome to our awesome app! You can now log in with the details below.
+
+                                            <p>
+                                                <b>Email:</b>
+                                                <%= user.email %>
+                                                    <br>
+                                                    <b>Password:</b> The password you picked</p>
+
+       
+
+                                                <p>Glad you joined us!</p>
+
+                                                <p>Best,
+                                                    <br>your Startup Team</p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>
