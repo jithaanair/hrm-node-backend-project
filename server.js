@@ -44,6 +44,9 @@ passport.use(new JwtStrategy(opts,function(jwt_payload,done){
 // RESTful API root
 // app.use('/user', userRoute);
 // app.use('/task', taskRoute);
+app.get('/', (request, response) => {
+  response.send('Hello');
+});
 app.use(passport.initialize());
 app.use(require('./routes/routes.js'));
 
