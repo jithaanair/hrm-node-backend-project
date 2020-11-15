@@ -45,7 +45,7 @@ passport.use(new JwtStrategy(opts,function(jwt_payload,done){
 // app.use('/user', userRoute);
 // app.use('/task', taskRoute);
 app.get('/', (request, response) => {
-  response.send('Hello');
+  response.send('Hello Suni Kutta!!!!');
 });
 app.use(passport.initialize());
 app.use(require('./routes/routes.js'));
