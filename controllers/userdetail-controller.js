@@ -76,7 +76,7 @@ exports.getMembers = function(req,res) {
         
             
             clonedObjArray = [...resultPosts];
-            //console.log("cloe",clonedObjArray);
+            console.log("cloe",clonedObjArray);
           
             clonedObjArray.forEach((err,taskslist)=>{
                
@@ -86,8 +86,8 @@ exports.getMembers = function(req,res) {
             .exec((err,progress1)=>{
                 
                 clonedObjArray[taskslist].progress= progress1;
-                //console.log(taskslist,clonedObjArray[taskslist]);
-                //console.log(clonedObjArray);
+                console.log(taskslist,clonedObjArray[taskslist]);
+                console.log(clonedObjArray);
                 //return res.json(clonedObjArray);
             });  
             Task.find({assignee:clonedObjArray[taskslist].PID,status:"Completed"})
@@ -95,8 +95,8 @@ exports.getMembers = function(req,res) {
             .exec((err,progress2)=>{
                 
                 clonedObjArray[taskslist].completed= progress2;
-                //console.log(taskslist,clonedObjArray[taskslist]);
-                //console.log(clonedObjArray);
+                console.log(taskslist,clonedObjArray[taskslist]);
+                console.log(clonedObjArray);
                 
             });
             Task.find({assignee:clonedObjArray[taskslist].PID,status:"Pending"})
@@ -104,8 +104,8 @@ exports.getMembers = function(req,res) {
             .exec((err,progress3)=>{
                 
                 clonedObjArray[taskslist].pending= progress3;
-                //console.log(taskslist,clonedObjArray[taskslist]);
-                //console.log(clonedObjArray);
+                console.log(taskslist,clonedObjArray[taskslist]);
+                console.log(clonedObjArray);
                 
             });
      
@@ -115,7 +115,7 @@ exports.getMembers = function(req,res) {
         setTimeout(function(){
             console.log("Cloned Obj",clonedObjArray);
             res.json(clonedObjArray);
-        }, 100);
+        },400);
 
     });
   
