@@ -54,7 +54,7 @@ exports.getMembers = function(req,res) {
     .exec((err,mid)=>{
         modid=mid.mid;
         Userdetail.find({mid:modid})
-        .select('PID fname lname -_id')
+        .select('PID fname lname avatar -_id')
         .populate({path:'jobid',
                    select:'jdesc -_id'})
         .exec((err,members)=>{

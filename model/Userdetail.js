@@ -39,7 +39,12 @@ var userdetailSchema = new mongoose.Schema({
     mid: {
             type: String,
             ref: 'Module'
-    }
+    },
+    role:{        
+        type: String,
+        enum: ['Admin', 'User'],
+    
+}
 });
 
 userdetailSchema.plugin(timestamps);

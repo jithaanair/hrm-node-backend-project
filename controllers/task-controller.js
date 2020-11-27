@@ -3,6 +3,23 @@ const User = require('../model/User');
 var emailCtrl= require('../controllers/email-controller');
 const Userdetail = require('../model/Userdetail');
 
+
+exports.getMemberTasks = function(req,res) {
+    const uid = req.params.id;
+    console.log(uid);
+    Task.find({assignee:uid})
+    .select('tid tname start_date due_date status priority -_id')
+    .exec((err,tasks)=>{
+        if(err){
+            console.log(error);
+            return res.status(400).json(err);
+        }
+        console.log(tasks);
+        res.json(tasks);
+    });
+   }
+   
+
 exports.getOwnTasks = function (req,res) {
 
     const uid=req.user.id;
@@ -63,6 +80,14 @@ exports.createTask =async function(req,res) {
         if(err) {
     //        console.log(error);
             return res.status(400).json(err);
+        }
+        if(task.creator != task.assignee) {
+            User.findById(task.assignee,(err,user)=> {
+                if(user) {
+                    console.log(user);
+                    emailCtrl.sendNewTaskMail(user,task);
+                }
+            });
         }
         res.status(201).json(task);
     });
@@ -168,7 +193,8 @@ exports.addAWSAttachement = function(req,res) {
    req.body.created_at = new Date().getTime();
 
    Task.findOne({$and: [{tid:req.params.id}, {"attachments.name":req.body.name }]}, (err, task) => {
-       if (task!=null) {
+      // if (task!=null) {
+        if(task?.tid == req.params.id) {
            console.log("inside same task id");
            console.log("inside same task id",task);
            Task.findOneAndUpdate({$and: [{tid:req.params.id}, {"attachments.name":req.body.name }]},{$push : {"attachments.created_at": req.body.created_at}},{new:true},(err,task)=>{            
