@@ -7,8 +7,8 @@ var bcrypt = require('bcrypt-nodejs');
 const User = require('../model/User');
 const Userdet = require('../model/Userdetail');
 
-function createToken(user) {
-   return jwt.sign({id:user.id}, config.jwtSecret);
+function createToken(user,role) {
+   return jwt.sign({id:user.id,role:role.role}, config.jwtSecret);
 }
 
 function randomString(length) {
@@ -80,7 +80,12 @@ exports.loginUser = function(req, res) {
 
       user.comparePassword(req.body.password, function(err, isMatch) {
         if (isMatch && !err) {
-         return res.status(200).json({token: createToken(user)});
+          Userdet.findById(user.id)
+          .select('role -_id')
+          .exec((err,role)=>{
+            console.log(role);
+         return res.status(200).json({token: createToken(user,role)});
+          });
         }else{
           return res.status(400).json({msg:"The email or password is incorrect"});
         }
