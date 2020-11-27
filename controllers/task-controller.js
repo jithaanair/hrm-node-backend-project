@@ -193,8 +193,8 @@ exports.addAWSAttachement = function(req,res) {
    req.body.created_at = new Date().getTime();
 
    Task.findOne({$and: [{tid:req.params.id}, {"attachments.name":req.body.name }]}, (err, task) => {
-      // if (task!=null) {
-        if(task?.tid == req.params.id) {
+      if (task!=null) {
+        //if(task?.tid == req.params.id) {
            console.log("inside same task id");
            console.log("inside same task id",task);
            Task.findOneAndUpdate({$and: [{tid:req.params.id}, {"attachments.name":req.body.name }]},{$push : {"attachments.created_at": req.body.created_at}},{new:true},(err,task)=>{            
