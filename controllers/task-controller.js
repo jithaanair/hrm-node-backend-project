@@ -64,6 +64,9 @@ exports.createTask =async function(req,res) {
     var newTask = Task(req.body);
     var userId = req.user.id;
     newTask.creator = userId;
+    if(newTask.assignee == null) {
+        newTask.assignee=newTask.creator;
+    }
 
     Task.findOne()
     .sort('-tid')
