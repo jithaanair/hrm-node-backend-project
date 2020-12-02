@@ -14,10 +14,21 @@ var Userdetail = require('../model/Userdetail');
 // };
 
 exports.getUsers = function(req,res) {
+    var userrole;
     console.log("inside getusers");
-    Userdetail.find()
+    Userdetail.findById(req.user.id).select('role -_id')
+    .exec((err,role)=>{
+        console.log(role);
+        if(role.role!="User")
+        {
+           if(role.role=="Admin")
+           {
+               userrole="User";
+           }
+
    // .populate({'path':'creator'})
    // .populate({'path':'assignee'})
+   Userdetail.find({role:userrole})
     .select('PID fname lname -_id')
     .exec((err,users)=> {
         if(err) {
@@ -27,7 +38,12 @@ exports.getUsers = function(req,res) {
         console.log(users);
        res.json(users);
     });  
-  
+}
+        else{
+            console.log("inside return");
+            return;
+        }
+});
 }
 
 exports.getMemberId = function(req,res) {
