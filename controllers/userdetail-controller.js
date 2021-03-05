@@ -1,6 +1,7 @@
 const Task = require('../model/Task');
 var Userdetail = require('../model/Userdetail');
-
+var OrgCtrl = require('../controllers/orgfromto-controller');
+var jobCtrl = require('../controllers/job-controller');
 // exports.addUser = function(req,res) {
 //     let userId = req.user.id;
 //     let newTask = Userdetail(req.body);
@@ -12,6 +13,20 @@ var Userdetail = require('../model/Userdetail');
 //         res.status(201).json(task);
 //     });
 // };
+
+exports.getAllUsers = function(req,res) {
+    console.log("here");
+    Userdetail.find()
+    .populate({'path':'jobid mid','select':'jdesc mname'})
+    .exec((err,users)=>{
+        if(err){
+            console.log(err);
+            return res.status(400).json(err);
+        }
+        console.log(users);
+       res.json(users);
+    });
+}
 
 exports.getUsers = function(req,res) {
     var userrole;
@@ -50,7 +65,7 @@ exports.getMemberId = function(req,res) {
     
     console.log(req.params.id);
     Userdetail.findById(req.params.id)
-    .populate({'path':'jobid','select':'jname'})
+    .populate({'path':'jobid','select':'jdesc'})
     .exec((err,members)=>{
         if(err) {
             console.log(err);
@@ -62,145 +77,100 @@ exports.getMemberId = function(req,res) {
 }
 
 exports.getMembers = function(req,res) {
-    var clonedObjArray=[];
-    console.log("Inside Members");
+    var clonedObjArray = new Array();
+    var orgmembers = new Array();
+    var members = [];
+
     var user = req.user.id;
     Userdetail.findById(user)
-    .select('mid')
-    .exec((err,mid)=>{
-        modid=mid.mid;
-        Userdetail.find({mid:modid})
+    .select('jobid')
+    .populate({path:'jobid',select:'jname -_id'})
+    .exec((err,jid)=>{
+        jobid=jid.jobid.jname;
+        console.log(jobid);
+        orgmembers=OrgCtrl.getHMembers(jobid);
+   // console.log(orgmembers);
+    });
+    setTimeout(function(){
+        console.log("length",orgmembers);
+        if (orgmembers=='')
+        {
+            return res.json('');
+        }
+        orgmembers.forEach(function(orgmember){
+        // console.log(orgmember);
+         jobCtrl.findJob(orgmember);          
+ });
+ }, 150);
+ setTimeout(function(){
+     
+    //console.log(jobCtrl.jobArray);
+ 
+     
+        Userdetail.find({jobid:jobCtrl.jobArray})
         .select('PID fname lname avatar -_id')
-        .populate({path:'jobid',
-                   select:'jdesc -_id'})
+        .populate({path:'jobid',select:'jdesc -_id'})
         .exec((err,members)=>{
-            if(err) {
+            if(err){
                 console.log(err);
                 res.status(400).json(err);
             }
-            
-            var resultPosts = members.map(function(mem) {
-                var tmpPost = mem.toObject();
-            
-                // Add properties...
-                tmpPost.progress = 0;
-                tmpPost.pending = 0;
-                tmpPost.completed = 0;
-                return tmpPost;
-              });
-            
-        
-            
-            clonedObjArray = [...resultPosts];
-            console.log("cloe",clonedObjArray);
-          
-            clonedObjArray.forEach((err,taskslist)=>{
-               
-           
-            Task.find({assignee:clonedObjArray[taskslist].PID,status:"In Progress"})
-            .countDocuments()
-            .exec((err,progress1)=>{
-                
-                clonedObjArray[taskslist].progress= progress1;
-                console.log(taskslist,clonedObjArray[taskslist]);
-                console.log(clonedObjArray);
-                //return res.json(clonedObjArray);
-            });  
-            Task.find({assignee:clonedObjArray[taskslist].PID,status:"Completed"})
-            .countDocuments()
-            .exec((err,progress2)=>{
-                
-                clonedObjArray[taskslist].completed= progress2;
-                console.log(taskslist,clonedObjArray[taskslist]);
-                console.log(clonedObjArray);
-                
-            });
-            Task.find({assignee:clonedObjArray[taskslist].PID,status:"Pending"})
-            .countDocuments()
-            .exec((err,progress3)=>{
-                
-                clonedObjArray[taskslist].pending= progress3;
-                console.log(taskslist,clonedObjArray[taskslist]);
-                console.log(clonedObjArray);
-                
-            });
-     
-                     
-            })
+            //members.push(memb);
+          // console.log(members);
+           var resultPosts = members.map(function(mem){
+            // console.log(mem);
+             var tmppost=mem.toObject();
+             tmppost.progress = 0;
+             tmppost.pending = 0;
+             tmppost.completed = 0;
+             return tmppost;
+         });
+         clonedObjArray = [...resultPosts];
         });
-        setTimeout(function(){
-            console.log("Cloned Obj",clonedObjArray);
-            res.json(clonedObjArray);
-        },400);
-
-    });
-  
-}
-// { PID: { $ne: req.user.id } }
-// find({assignee:members.PID})
-// Task
-//             .aggregate(
-//         [
-//             {
-//                $match:{
-//                    status:{
-//                       $eq:'Pending'
-//                     }
-//                 }
-//             },
-//             {
-//                 $count:"pending"
-//             }
-//     ])
-
-
- // members.progress="";
-            // members.pending="";
-            // members.completed="";
-            // let clonedWidget = Object.assign({}, members);
-            // console.log("cloned",clonedWidget);
-
-//   members.forEach(function(element) {
-        //         tmpPost = element.toObject();
-        //         tmpPost.progress = 1;
-        //         console.log("tmppost",tmpPost);
-        //         //element.progress="";
-        //     });
-            // Object.defineProperty(members, 'progress', {
-            //     value:0,
-            //     writable: false
-            //   });
-
- // Object.defineProperty(clonedObjArray[taskslist], 'progress', {
-                //     value: progress,
-                //     writable: true
-                //   });
-                //console.log(prgcount);
-                //taskslist.progress=progress1;
-
-  // clonedObjArray.map(obj=> ({ ...members, pending: 'false' }))
-            
-            //clonedObjArray.progress="";
-            // clonedObjArray.forEach(function (element) {
-            //     Task.find({assignee:element.PID,status:"In Progress"})
-            //         .countDocuments()
-            //         .exec((err,prgcount)=>{
-            //             if(err)
-            //             {
-            //                 console.log(err);
-            //             }
-            //      clonedObjArray["progress"]=prgcount;
-            //     // member1=Object.assign(clonedObjArray,{progress:prgcount});
-            //     console.log(clonedObjArray);
-            // });
-            //    // console.log(clonedObjArray);
-            //   });
-            // Object.defineProperty(clonedObjArray, 'progress', {
-            //     writable: true
-            //   });
-            //   console.log("he",clonedObjArray);
-// clonedObjArray[taskslist]["progress"]=progress1;
-                 //Object.assign({},clonedObjArray[taskslist],{progress:progress1});
-            
- //clonedObjArray.progress="";
+       
+     
+ },200);
  
+ setTimeout(function(){
+    
+     
+     //console.log("cloe",clonedObjArray);
+     clonedObjArray.forEach((err,taskslist)=>{
+      Task.find({assignee:clonedObjArray[taskslist].PID,status:"In Progress"})
+      .countDocuments()
+      .exec((err,progress1)=>{
+          
+          clonedObjArray[taskslist].progress= progress1;
+         // console.log(taskslist,clonedObjArray[taskslist]);
+         // console.log(clonedObjArray);
+          //return res.json(clonedObjArray);
+      });  
+      Task.find({assignee:clonedObjArray[taskslist].PID,status:"Completed"})
+      .countDocuments()
+      .exec((err,progress2)=>{
+          
+          clonedObjArray[taskslist].completed= progress2;
+         // console.log(taskslist,clonedObjArray[taskslist]);
+         // console.log(clonedObjArray);
+          
+      });
+      Task.find({assignee:clonedObjArray[taskslist].PID,status:"Pending"})
+      .countDocuments()
+      .exec((err,progress3)=>{
+          
+          clonedObjArray[taskslist].pending= progress3;
+         // console.log(taskslist,clonedObjArray[taskslist]);
+         // console.log(clonedObjArray);
+          
+      });
+     });
+ 
+ },300);
+ 
+ setTimeout(function(){
+         //console.log("Cloned Obj",clonedObjArray);
+         res.json(clonedObjArray);
+     },400);
+ 
+ }
+       

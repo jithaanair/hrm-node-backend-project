@@ -10,4 +10,6 @@ router.use('/module',require('./module.route'));
 router.use('/job',require('./job.route'))
 router.use('/aws',passport.authenticate('jwt',{session:false}),require('./aws.routes'));
 router.use('/org',require('./org.route.js'));
+router.use('/orgfromto',require('./orgfromto.route.js'));
+router.use('/schedule',passport.authenticate('jwt',{session:false}),require('./schedule.route.js'));
 module.exports = router;

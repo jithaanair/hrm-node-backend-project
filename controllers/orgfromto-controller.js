@@ -1,0 +1,144 @@
+const { text } = require('body-parser');
+var Orgfromto = require('../model/Orgfromto');
+
+
+
+exports.getChart = function(req,res) {
+   // console.log("inside getOrg");
+    Orgfromto.find()
+    .select('title -_id')
+    .exec((err,org)=> {
+        if(err) {
+            //console.log(err);
+            return res.status(400).json(err);
+        }
+        //console.log(org);
+       res.json(org);
+    });  
+  
+}
+
+exports.updateChart = function(req,res) {
+ 
+     var title;
+    Orgfromto.findById({_id:'5fdc75f6c11dfd373011257a'})
+    .select('title -_id')
+    .exec((err,org)=>{
+      var block1='PM';
+      var block2='hello';
+      title=org.title;
+      title = title + ',';
+      title=title+'['+ block1 +','+ block2+']';
+      Orgfromto.findOneAndUpdate({_id:'5fdc75f6c11dfd373011257a'},{title: title},{new:true},(err,chart)=>{
+        if(err) {
+            console.log(err);
+            return res.status(400).json(err);
+        }
+        return res.json(chart);
+     
+     }); 
+    });
+    
+    
+    // Orgfromto.title.push(['block1', 'block2']);
+    // Orgfromto.markModified('title');
+    // Orgfromto.save();
+     
+ };
+
+
+ exports.getHMembers = function(job){
+    let arr1=new Array();
+    let activities=new Array();
+    let fromdata;
+    var i,j=0;
+    var tempString='';
+    Orgfromto.find()
+    .select('title -_id')
+    .exec((err,org)=> {
+        if(err) {
+            //console.log(err);
+            return res.status(400).json(err);
+        }
+    
+    
+       for (i=0;i<org[0].title.length;i++)
+       {
+           if(org[0].title[i]==']')
+           {
+               for(j;j<=i;j++)
+               { 
+                tempString=tempString+org[0].title[j];
+               }
+               j=i+2;
+               var [a, b] = tempString.split(',');
+               a=a.replace(/[['"]+/g, '');
+               b=b.replace(/]+/g,'');
+             //a=a.replace(/['"]+/g, '');
+               b=b.replace(/['"]+/g,'');
+               a=a.trim();
+               b=b.trim();
+               console.log("a",a);
+               console.log("b",b);
+               activities.push([a,b]);
+               tempString='';
+
+           }
+       }
+       console.log(activities);
+       //activities=[['MD', 'FD'],['MD', 'DOE'],['DOE', 'PM'],['DOE', 'HRM'],['PM', 'BA'],['PM', 'Eng'],['Eng','Product']];
+       indexOf2d(activities, job);
+    });
+    function indexof3d(val){
+        activities.some(function(sub,posX){
+          var pe= sub.indexOf(val);
+         // console.log(val);
+          if(pe==0){
+              //console.log(posX);
+              arr1.push(activities[posX][1]);
+              indexof3d(activities[posX][1]);
+          }
+          //console.log(pe);
+        });
+    }
+    function indexOf2d(arr, val) {
+
+        var index = [-1, -1];
+    
+        if (!Array.isArray(arr)) {
+            return index;
+        }
+    
+        arr.some(function (sub, posX) {
+        
+            if (!Array.isArray(sub)) {
+                return false;
+            }
+    
+            var posY =sub.indexOf(val);
+            //console.log(posY);
+            
+            if (posY !== -1) {
+                let i=1;
+                index[0] = posX;
+                index[1] = posY;
+                if(posY==0){
+                //console.log(activities[posX][1]);
+                arr1.push(activities[posX][1]);
+                //arr1.push(posX);
+                }
+               
+                //return true;
+            }
+            
+            return false;
+        });
+        arr1.forEach(function(number){
+            //console.log(number);
+            indexof3d(number);
+        });
+       // return arr1;
+    }
+    
+  return arr1;  
+ }
