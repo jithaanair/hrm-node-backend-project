@@ -89,7 +89,7 @@ exports.getMembers = function(req,res) {
         jobid=jid.jobid.jname;
         console.log(jobid);
         orgmembers=OrgCtrl.getHMembers(jobid);
-   // console.log(orgmembers);
+        console.log("Orgmembers",orgmembers);
     });
     setTimeout(function(){
         console.log("length",orgmembers);
@@ -98,10 +98,10 @@ exports.getMembers = function(req,res) {
             return res.json('');
         }
         orgmembers.forEach(function(orgmember){
-        // console.log(orgmember);
+         console.log(orgmember);
          jobCtrl.findJob(orgmember);          
  });
- }, 150);
+ }, 300);
  setTimeout(function(){
      
     //console.log(jobCtrl.jobArray);
@@ -116,7 +116,7 @@ exports.getMembers = function(req,res) {
                 res.status(400).json(err);
             }
             //members.push(memb);
-          // console.log(members);
+           console.log("Members",members);
            var resultPosts = members.map(function(mem){
             // console.log(mem);
              var tmppost=mem.toObject();
@@ -129,7 +129,7 @@ exports.getMembers = function(req,res) {
         });
        
      
- },200);
+ },500);
  
  setTimeout(function(){
     
@@ -141,8 +141,8 @@ exports.getMembers = function(req,res) {
       .exec((err,progress1)=>{
           
           clonedObjArray[taskslist].progress= progress1;
-         // console.log(taskslist,clonedObjArray[taskslist]);
-         // console.log(clonedObjArray);
+          console.log(taskslist,clonedObjArray[taskslist]);
+         console.log(clonedObjArray);
           //return res.json(clonedObjArray);
       });  
       Task.find({assignee:clonedObjArray[taskslist].PID,status:"Completed"})
@@ -150,8 +150,8 @@ exports.getMembers = function(req,res) {
       .exec((err,progress2)=>{
           
           clonedObjArray[taskslist].completed= progress2;
-         // console.log(taskslist,clonedObjArray[taskslist]);
-         // console.log(clonedObjArray);
+          console.log(taskslist,clonedObjArray[taskslist]);
+          console.log(clonedObjArray);
           
       });
       Task.find({assignee:clonedObjArray[taskslist].PID,status:"Pending"})
@@ -159,18 +159,18 @@ exports.getMembers = function(req,res) {
       .exec((err,progress3)=>{
           
           clonedObjArray[taskslist].pending= progress3;
-         // console.log(taskslist,clonedObjArray[taskslist]);
-         // console.log(clonedObjArray);
+         console.log(taskslist,clonedObjArray[taskslist]);
+         console.log(clonedObjArray);
           
       });
      });
  
- },300);
+ },700);
  
  setTimeout(function(){
-         //console.log("Cloned Obj",clonedObjArray);
+         console.log("Cloned Obj",clonedObjArray);
          res.json(clonedObjArray);
-     },400);
+     },800);
  
  }
        
