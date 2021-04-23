@@ -42,6 +42,16 @@ var taskSchema = new mongoose.Schema({
     //     }
     // ],
     attachments : { type : Array , "default" : [] },
+    comments: [
+        {
+            text: String,
+            created_at: Date,
+            user: {
+                type: String,
+                ref: 'Userdetail'
+            }
+        }
+    ],
     // attachments: [{
     //         name:
     //         {

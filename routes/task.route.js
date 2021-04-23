@@ -11,5 +11,5 @@ router.post('/:id/attachements', taskCtrl.addAWSAttachement);
 router.delete('/:id',taskCtrl.deleteTask);
 router.put('/:id',taskCtrl.updateTask);
 router.post('/',taskCtrl.createTask);
-
+router.post('/:id/comments', taskCtrl.addComment);
 module.exports = router;

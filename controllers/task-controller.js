@@ -115,7 +115,7 @@ exports.getTask = async function(req,res) {
   //  console.log("inside here");
   //  console.log(req.params.tid);
     await Task.find({tid:req.params.tid})
-    .populate("creator assignee")
+    .populate("creator assignee comments.user")
     //.populate({'path':'creator',select:{'fname + lname'}})
     //.populate({'path':'assignee'})
     .exec((err,task)=>{
@@ -216,3 +216,16 @@ exports.addAWSAttachement = function(req,res) {
 }
 
 // await MyModel.find({ name: 'john', age: { $gte: 18 } }).exec();
+
+exports.addComment = function(req, res) {
+    req.body.user = req.user.id;
+    req.body.created_at = new Date().getTime();
+
+    Task.findOneAndUpdate({tid:req.params.id}, { $push: { comments: req.body}}, { new: true }, (err, task) => {
+        if (err) {
+            return res.status(400).json(err);
+        }
+
+        return res.json(task);
+    });
+};
