@@ -44,7 +44,6 @@ var userdetailSchema = new mongoose.Schema({
         type: String,
         enum: ['Admin', 'User'],
         default:'User'
-    
 }
 });
 

@@ -7,8 +7,12 @@ exports.getTodaysEvents = function(req,res) {
  console.log("uid",uid);
  var current = new Date();
  var todaydate=current.toISOString();
+ var tomorrow = new Date();
+ tomorrow.setDate(tomorrow.getDate() + 1);
+ var tomorrowdate=tomorrow.toISOString();
+ console.log("tomorrow",tomorrow);
  console.log(todaydate);
- Schedule.find({$and:[{assignee:uid}, {startTime:{ $gte: todaydate } }]})
+ Schedule.find({$and:[{$or:[{assignee:uid},{users:uid}]}, {startTime:{$gte: todaydate,$lt:tomorrowdate}}]})
  //Schedule.find({assignee:uid})
  .exec((err,events)=>{
      if(err){
@@ -24,7 +28,8 @@ exports.getOwnEvents = function (req,res) {
 
     const uid=req.user.id;
     console.log(uid);
-    Schedule.find({assignee:uid})
+   // Schedule.find({assignee:uid})
+    Schedule.find({$or: [{ assignee: uid }, {users : uid}]})
     .exec((err,events)=> {
         if(err) {
             console.log(error);

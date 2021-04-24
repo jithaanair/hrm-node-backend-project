@@ -15,7 +15,11 @@ var scheduleSchema = new mongoose.Schema({
     allday:{
         type:Boolean,
         default:false
-    }
+    },
+    users: [{
+        type:'String',
+        ref:'Userdetail'
+    }]
 });
 
 scheduleSchema.plugin(timestamps);

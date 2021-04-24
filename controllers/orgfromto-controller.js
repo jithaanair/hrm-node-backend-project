@@ -21,14 +21,15 @@ exports.getChart = function(req,res) {
 exports.updateChart = function(req,res) {
  
      var title;
+     const [from] = req.body;
     Orgfromto.findById({_id:'5fdc75f6c11dfd373011257a'})
     .select('title -_id')
     .exec((err,org)=>{
-      var block1='PM';
+      title=org.title;
       var block2='hello';
       title=org.title;
       title = title + ',';
-      title=title+'['+ block1 +','+ block2+']';
+      title=title+'['+from+']';
       Orgfromto.findOneAndUpdate({_id:'5fdc75f6c11dfd373011257a'},{title: title},{new:true},(err,chart)=>{
         if(err) {
             console.log(err);
@@ -38,13 +39,28 @@ exports.updateChart = function(req,res) {
      
      }); 
     });
-    
-    
+}  
     // Orgfromto.title.push(['block1', 'block2']);
     // Orgfromto.markModified('title');
     // Orgfromto.save();
      
- };
+    exports.deleteChart = function(req,res) {
+        var data=req.body;
+        console.log(data);
+        var data1=data[0].toString();
+        var length = data.length;
+        Orgfromto.findById('5fdc75f6c11dfd373011257a')
+        .select('title -_id')
+        .exec((err,org)=>{ 
+            var str=org.title;
+        for(i=0;i<=length-1;i++){
+            var data1=data[i].toString();
+            console.log(data1);
+            str=str.replace(`,[${data1}]`,'');
+        }
+        console.log(str);
+       });
+    }  
 
 
  exports.getHMembers = function(job){

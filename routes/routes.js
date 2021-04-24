@@ -12,4 +12,6 @@ router.use('/aws',passport.authenticate('jwt',{session:false}),require('./aws.ro
 router.use('/org',require('./org.route.js'));
 router.use('/orgfromto',require('./orgfromto.route.js'));
 router.use('/schedule',passport.authenticate('jwt',{session:false}),require('./schedule.route.js'));
+router.use('/invitations',passport.authenticate('jwt',{session:false}), require('./invitation_routes'));
+router.use('/inventory',passport.authenticate('jwt',{session:false}),require('./inventory.route'));
 module.exports = router;
