@@ -2,7 +2,7 @@ var User = require('../model/User');
 var Userdet = require('../model/Userdetail');
 var Schedule = require('../model/Schedule');
 var emailCtrl = require('./email-controller');
-var Invitation = require('../model/invitation');
+var Invitation = require('../model/Invitation');
 
 //Promise = require('promise');
 exports.inviteUser =  function (req,res) {
