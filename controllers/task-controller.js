@@ -115,7 +115,7 @@ exports.getTask = async function(req,res) {
   //  console.log("inside here");
   //  console.log(req.params.tid);
     await Task.find({tid:req.params.tid})
-    .populate("creator assignee comments.user")
+    .populate("creator assignee comments.user institution")
     //.populate({'path':'creator',select:{'fname + lname'}})
     //.populate({'path':'assignee'})
     .exec((err,task)=>{

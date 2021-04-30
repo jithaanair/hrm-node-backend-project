@@ -27,6 +27,10 @@ var taskSchema = new mongoose.Schema({
         type: String,
         ref: 'Userdetail'
     },
+    institution:{
+        type:String,
+        ref: 'Institution'
+    },
     // mid: {
     //     type: mongoose.Schema.Types.ObjectId,
     //     ref:'Module'
