@@ -11,7 +11,7 @@ router.use('/job',require('./job.route'))
 router.use('/aws',passport.authenticate('jwt',{session:false}),require('./aws.routes'));
 router.use('/org',require('./org.route.js'));
 router.use('/orgfromto',require('./orgfromto.route.js'));
-router.use('/schedule',passport.authenticate('jwt',{session:false}),require('./schedule.route.js'));
+router.use('/schedule',passport.authenticate('jwt',{session:false}),require('./schedule.route'));
 router.use('/invitations',passport.authenticate('jwt',{session:false}), require('./invitation_routes'));
 router.use('/inventory',passport.authenticate('jwt',{session:false}),require('./inventory.route'));
 router.use('/institution',passport.authenticate('jwt',{session:false}),require('./institution.routes'));

@@ -93,6 +93,7 @@ var invites = [];
 
 
 exports.getMyInvitations = function (req,res) {
+        console.log(req.user.id);
         Invitation.find({to:req.user.id})
         .populate([{ 'path': 'board','select': 'title desc'}])
         .populate([{ 'path': 'from', 'select':'fname lname'}])
