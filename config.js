@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 module.exports = {
     env: process.env.NODE_ENV || 'development',
     jwtSecret: process.env.JWT_SECRET || '1234secret456',
@@ -7,6 +9,7 @@ module.exports = {
        domain: process.env.MAILGUN_DOMAIN || 'sandbox79247eaf597b4104a6cd19a30336015f.mailgun.org'
    },
 
-   aws_bucket: process.env.S3_BUCKET || 'hrmbucket'
-
+   aws_bucket: process.env.S3_BUCKET || 'hrmbucket',
+   mongo_db:process.env.MONGO_CONN
 };
+
