@@ -121,7 +121,7 @@ exports.getMembers = function(req,res) {
  
  }, 1300);
  setTimeout(function(){
-     console.log("job array--------s");
+     console.log("job array--------s")
     console.log(jobCtrl.jobArray);
  
      
@@ -151,7 +151,7 @@ exports.getMembers = function(req,res) {
         });
        
      
- },4000);
+ },500);
  
  setTimeout(function(){
     
@@ -187,7 +187,7 @@ exports.getMembers = function(req,res) {
       });
      });
  
- },6000);
+ },700);
  
  setTimeout(function(){
         //  console.log("Cloned Obj",clonedObjArray);
@@ -197,7 +197,7 @@ exports.getMembers = function(req,res) {
          res.json(clonedObjArray);
          console.log("187");
 
-     },10000);
+     },800);
  
  }
        
