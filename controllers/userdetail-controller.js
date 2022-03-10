@@ -182,9 +182,9 @@ exports.getMembers = function(req,res) {
  
  setTimeout(function(){
         //  console.log("Cloned Obj",clonedObjArray);
-        if(stat)
-        return res.json('emptyss');
-        else
+        // if(stat)
+        // return res.json('emptyss');
+        // else
          res.json(clonedObjArray);
          console.log("187");
 
