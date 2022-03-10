@@ -135,7 +135,7 @@ exports.updateChart = function(req,res) {
               indexof3d(activities[posX][1]);
           }
           console.log(pe);
- console.log("line 138");
+          console.log("line 138");
 
         });
     }
