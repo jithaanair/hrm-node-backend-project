@@ -117,7 +117,9 @@ exports.updateChart = function(req,res) {
 
            }
        }
+       console.log("==================activites120");
        console.log(activities);
+       console.log("activites end");
        //activities=[['MD', 'FD'],['MD', 'DOE'],['DOE', 'PM'],['DOE', 'HRM'],['PM', 'BA'],['PM', 'Eng'],['Eng','Product']];
        indexOf2d(activities, job);
     });
