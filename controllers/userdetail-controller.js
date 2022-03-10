@@ -144,7 +144,7 @@ exports.getMembers = function(req,res) {
         });
        
      
- },500);
+ },1500);
  
  setTimeout(function(){
     
@@ -180,7 +180,7 @@ exports.getMembers = function(req,res) {
       });
      });
  
- },700);
+ },1700);
  
  setTimeout(function(){
         //  console.log("Cloned Obj",clonedObjArray);
@@ -190,7 +190,7 @@ exports.getMembers = function(req,res) {
          res.json(clonedObjArray);
          console.log("187");
 
-     },800);
+     },1800);
  
  }
        
