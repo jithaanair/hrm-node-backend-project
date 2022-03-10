@@ -22,15 +22,17 @@ exports.updateChart = function(req,res) {
  
      var title;
      const [from] = req.body;
-    Orgfromto.findById({_id:'5fdc75f6c11dfd373011257a'})
+    Orgfromto.findById({_id:'6040937d28ed8e265cf4629a'})
     .select('title -_id')
     .exec((err,org)=>{
+        
+        console.log("************"+org);
       title=org.title;
       var block2='hello';
       title=org.title;
       title = title + ',';
       title=title+'['+from+']';
-      Orgfromto.findOneAndUpdate({_id:'5fdc75f6c11dfd373011257a'},{title: title},{new:true},(err,chart)=>{
+      Orgfromto.findOneAndUpdate({_id:'6040937d28ed8e265cf4629awha'},{title: title},{new:true},(err,chart)=>{
         if(err) {
             console.log(err);
             return res.status(400).json(err);
