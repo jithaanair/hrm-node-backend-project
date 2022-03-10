@@ -3,7 +3,7 @@ var mailgun = require('mailgun-js')({apiKey: config.mailgun.apiKey, domain: conf
 var ejs = require('ejs');
 var fs = require('fs');
 var path = require('path');
-
+console.log("This is a "+config.mailgun.apiKey+" sss"+ config.mailgun.domain);
 var jsonPathStyle = path.join(__dirname,'..','templates','email_style.html');
 var css = fs.readFileSync(jsonPathStyle,'utf8');
 
@@ -64,7 +64,7 @@ function sendEmail(subject, user, template_name, additional_data) {
         subject:subject,
         html:text
     };
-
+ console.log("herrrr");
     mailgun.messages().send(data).then(res=>console.log(res)).catch(err=>console.log(err));
 
 }
@@ -83,9 +83,11 @@ function sendBatchEmail(subject, user, recipient_name) {
      //   },
      html:'<html><head><meta name="viewport" content="width=device-width" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/></head><body class=""><table border="0" cellpadding="0" cellspacing="0" class="body"><tr><td>&nbsp;</td><td class="container"><div class="content"><table class="main"><tr><td class="wrapper"><table border="0" cellpadding="0" cellspacing="0"><tr><td><h2>Hey %recipient.firstName% %recipient.lastName%!</h2><p>You have been invited to collaborate on the board %recipient.board%!<p><b>Description:</b> %recipient.desc%</p><p>You can accept or decline the invitation inside your app!</p><p>Best,<br>your Startup Team</p></td></tr></table></td></tr></table></div></td></tr></table></body></html>',
    };
-   
+   console.log("----------------------");
+   console.log(data);
    mailgun.messages().send(data, function (error, body) {
      console.log(body);
+     console.log(error);
    });
    
  }

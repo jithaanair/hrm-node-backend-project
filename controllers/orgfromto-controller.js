@@ -25,14 +25,12 @@ exports.updateChart = function(req,res) {
     Orgfromto.findById({_id:'6040937d28ed8e265cf4629a'})
     .select('title -_id')
     .exec((err,org)=>{
-        
-        console.log("************"+org);
       title=org.title;
       var block2='hello';
       title=org.title;
       title = title + ',';
       title=title+'['+from+']';
-      Orgfromto.findOneAndUpdate({_id:'6040937d28ed8e265cf4629awha'},{title: title},{new:true},(err,chart)=>{
+      Orgfromto.findOneAndUpdate({_id:'6040937d28ed8e265cf4629a'},{title: title},{new:true},(err,chart)=>{
         if(err) {
             console.log(err);
             return res.status(400).json(err);
@@ -48,19 +46,35 @@ exports.updateChart = function(req,res) {
      
     exports.deleteChart = function(req,res) {
         var data=req.body;
-        console.log(data);
+        // console.log(data);
         var data1=data[0].toString();
         var length = data.length;
-        Orgfromto.findById('5fdc75f6c11dfd373011257a')
+        Orgfromto.findById('6040937d28ed8e265cf4629a')
         .select('title -_id')
         .exec((err,org)=>{ 
+            console.log(org);
             var str=org.title;
+            console.log("*********"+str);
+
         for(i=0;i<=length-1;i++){
             var data1=data[i].toString();
-            console.log(data1);
+            // console.log(data1);
             str=str.replace(`,[${data1}]`,'');
         }
+        console.log("********");
         console.log(str);
+        // return res.json(str);
+        Orgfromto.findOneAndUpdate({_id:'6040937d28ed8e265cf4629a'},{title: str},{new:true},(err,chart)=>{
+            if(err) {
+                console.log(err);
+                console.log("--------");
+                console.log(chart);
+                return res.status(400).json(err);
+            }
+            return res.json(chart);
+         
+         }); 
+
        });
     }  
 
