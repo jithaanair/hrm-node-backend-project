@@ -197,7 +197,7 @@ exports.getMembers = function(req,res) {
          res.json(clonedObjArray);
          console.log("187");
 
-     },800);
+     },6800);
  
  }
        
