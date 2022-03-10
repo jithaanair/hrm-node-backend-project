@@ -80,7 +80,7 @@ exports.getMembers = function(req,res) {
     var clonedObjArray = new Array();
     var orgmembers = new Array();
     var members = [];
-    var status=0;
+    var stat=0;
 
     var user = req.user.id;
     console.log("------------------");
@@ -104,7 +104,7 @@ exports.getMembers = function(req,res) {
         if (orgmembers=='')
         {
             console.log("inside 105");
-            // status=1;
+            stat=1;
         }
         orgmembers.forEach(function(orgmember){
         //  console.log(orgmember);
@@ -182,7 +182,7 @@ exports.getMembers = function(req,res) {
  
  setTimeout(function(){
         //  console.log("Cloned Obj",clonedObjArray);
-        if(status)
+        if(stat)
         return res.json('empty');
         else
          res.json(clonedObjArray);
