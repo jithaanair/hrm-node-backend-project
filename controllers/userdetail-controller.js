@@ -104,7 +104,7 @@ exports.getMembers = function(req,res) {
         if (orgmembers=='')
         {
             console.log("inside 105");
-            status=1;
+            // status=1;
         }
         orgmembers.forEach(function(orgmember){
         //  console.log(orgmember);
