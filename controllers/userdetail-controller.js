@@ -96,7 +96,13 @@ exports.getMembers = function(req,res) {
     console.log("------------------");
 
         console.log(jobid);
-        orgmembers=OrgCtrl.getHMembers(jobid);
+        // orgmembers=OrgCtrl.getHMembers(jobid);
+        OrgCtrl.getHMembers(jobid, function(returnValue) {
+            // use the return value here instead of like a regular (non-evented) return value
+            orgmembers=returnValue;
+          });
+
+
         console.log("Orgmembers",orgmembers);
     });
     setTimeout(function(){
@@ -112,10 +118,11 @@ exports.getMembers = function(req,res) {
          console.log(orgmember);
          jobCtrl.findJob(orgmember);          
  });
+ 
  }, 1300);
  setTimeout(function(){
-     
-    //console.log(jobCtrl.jobArray);
+     console.log("job array--------s");
+    console.log(jobCtrl.jobArray);
  
      
         Userdetail.find({jobid:jobCtrl.jobArray})
@@ -144,7 +151,7 @@ exports.getMembers = function(req,res) {
         });
        
      
- },500);
+ },4000);
  
  setTimeout(function(){
     
@@ -180,7 +187,7 @@ exports.getMembers = function(req,res) {
       });
      });
  
- },700);
+ },6000);
  
  setTimeout(function(){
         //  console.log("Cloned Obj",clonedObjArray);
@@ -190,7 +197,7 @@ exports.getMembers = function(req,res) {
          res.json(clonedObjArray);
          console.log("187");
 
-     },800);
+     },8000);
  
  }
        
