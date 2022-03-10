@@ -9,6 +9,6 @@ module.exports = {
        domain: process.env.MAILGUN_DOMAIN || 'sandboxdb32ffb2608f4c6fa77ff715b52076ee.mailgun.org'
    },
 
-   aws_bucket: process.env.S3_BUCKET || 'hrmbucket'
-
+   aws_bucket: process.env.S3_BUCKET || 'hrmbucket',
+   mongo_db:"mongodb+srv://hrm:lUwYCCVZdVKc2DB1@hrm.h3zdx.mongodb.net/startup"
 };
