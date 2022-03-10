@@ -124,7 +124,7 @@ exports.updateChart = function(req,res) {
        indexOf2d(activities, job);
     });
     function indexof3d(val){
- console.log("line 127");
+//  console.log("line 127");
 
         activities.some(function(sub,posX){
           var pe= sub.indexOf(val);
@@ -135,7 +135,7 @@ exports.updateChart = function(req,res) {
               indexof3d(activities[posX][1]);
           }
           console.log(pe);
-          console.log("line 138");
+        // console.log("line 138");
 
         });
     }
@@ -144,17 +144,17 @@ exports.updateChart = function(req,res) {
         var index = [-1, -1];
     
         if (!Array.isArray(arr)) {
- console.log("line 144");
+//  console.log("line 144");
 
             return index;
 
         }
     
         arr.some(function (sub, posX) {
- console.log("line 150");
+//  console.log("line 150");
         
             if (!Array.isArray(sub)) {
- console.log("line 153");
+//  console.log("line 153");
 
                 return false;
             }
@@ -171,7 +171,7 @@ exports.updateChart = function(req,res) {
                 arr1.push(activities[posX][1]);
                 //arr1.push(posX);
                 }
- console.log("line 170");
+//  console.log("line 170");
                
                 //return true;
             }
@@ -180,13 +180,13 @@ exports.updateChart = function(req,res) {
         });
         arr1.forEach(function(number){
             console.log(number);
- console.log("line 179");
+//  console.log("line 179");
 
             indexof3d(number);
         });
        // return arr1;
     }
- console.log("line 186");
+//  console.log("line 186");
     
   return arr1;  
  }

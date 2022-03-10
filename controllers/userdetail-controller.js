@@ -112,7 +112,7 @@ exports.getMembers = function(req,res) {
          console.log(orgmember);
          jobCtrl.findJob(orgmember);          
  });
- }, 1300);
+ }, 300);
  setTimeout(function(){
      
     //console.log(jobCtrl.jobArray);
@@ -144,7 +144,7 @@ exports.getMembers = function(req,res) {
         });
        
      
- },1500);
+ },500);
  
  setTimeout(function(){
     
@@ -180,7 +180,7 @@ exports.getMembers = function(req,res) {
       });
      });
  
- },1700);
+ },700);
  
  setTimeout(function(){
         //  console.log("Cloned Obj",clonedObjArray);
@@ -190,7 +190,7 @@ exports.getMembers = function(req,res) {
          res.json(clonedObjArray);
          console.log("187");
 
-     },1800);
+     },800);
  
  }
        
