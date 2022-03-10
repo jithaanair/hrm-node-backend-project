@@ -111,93 +111,111 @@ exports.getMembers = function(req,res) {
         {
             console.log("inside 105 000");
             stat=1;
+            // return res.json('emptyss');
+
         }
         orgmembers.forEach(function(orgmember){
-    console.log("11------------------11");
+        console.log("11------------------11");
 
          console.log(orgmember);
          jobCtrl.findJob(orgmember);          
  });
- 
+ setTimeout(function(){
+    timerone(res);
+}, 1300);
  }, 1300);
- setTimeout(function(){
-     console.log("job array--------s")
-    console.log(jobCtrl.jobArray);
- 
-     
-        Userdetail.find({jobid:jobCtrl.jobArray})
-        .select('PID fname lname avatar -_id')
-        .populate({path:'jobid',select:'jdesc -_id'})
-        .exec((err,members)=>{
-            if(err){
-                console.log("inside 123");
 
-                console.log(err);
-                res.status(400).json(err);
-            }
-            //members.push(memb);
-        //    console.log("Members",members);
-           var resultPosts = members.map(function(mem){
-            // console.log(mem);
-             var tmppost=mem.toObject();
-             tmppost.progress = 0;
-             tmppost.pending = 0;
-             tmppost.completed = 0;
-             console.log("132");
-
-             return tmppost; 
-         });
-         clonedObjArray = [...resultPosts];
-        });
-       
-     
- },500);
  
- setTimeout(function(){
-    
-     
-     //console.log("cloe",clonedObjArray);
-     clonedObjArray.forEach((err,taskslist)=>{
-      Task.find({assignee:clonedObjArray[taskslist].PID,status:"In Progress"})
-      .countDocuments()
-      .exec((err,progress1)=>{
-          
-          clonedObjArray[taskslist].progress= progress1;
-        //   console.log(taskslist,clonedObjArray[taskslist]);
-        //  console.log(clonedObjArray);
-          //return res.json(clonedObjArray);
-      });  
-      Task.find({assignee:clonedObjArray[taskslist].PID,status:"Completed"})
-      .countDocuments()
-      .exec((err,progress2)=>{
-          
-          clonedObjArray[taskslist].completed= progress2;
-        //   console.log(taskslist,clonedObjArray[taskslist]);
-        //   console.log(clonedObjArray);
-          
-      });
-      Task.find({assignee:clonedObjArray[taskslist].PID,status:"Pending"})
-      .countDocuments()
-      .exec((err,progress3)=>{
-          
-          clonedObjArray[taskslist].pending= progress3;
-        //  console.log(taskslist,clonedObjArray[taskslist]);
-        //  console.log(clonedObjArray);
-          
-      });
-     });
  
- },700);
  
- setTimeout(function(){
-        //  console.log("Cloned Obj",clonedObjArray);
-        if(stat)
-        return res.json('emptyss');
-        else
-         res.json(clonedObjArray);
-         console.log("187");
-
-     },6800);
+ 
  
  }
        
+ function timerone(res)
+ {
+    // setTimeout(function(){
+        console.log("job array--------s")
+       console.log(jobCtrl.jobArray);
+    
+        
+           Userdetail.find({jobid:jobCtrl.jobArray})
+           .select('PID fname lname avatar -_id')
+           .populate({path:'jobid',select:'jdesc -_id'})
+           .exec((err,members)=>{
+               if(err){
+                   console.log("inside 123");
+   
+                   console.log(err);
+                   res.status(400).json(err);
+               }
+               //members.push(memb);
+                //    console.log("Members",members);
+              var resultPosts = members.map(function(mem){
+               // console.log(mem);
+                var tmppost=mem.toObject();
+                tmppost.progress = 0;
+                tmppost.pending = 0;
+                tmppost.completed = 0;
+                console.log("132");
+   
+                return tmppost; 
+            });
+            clonedObjArray = [...resultPosts];
+            timer2(clonedObjArray,res);
+           });
+          
+        
+    // },500);
+ }
+
+ function timer2(clonedObjArray,res)
+ {
+    // setTimeout(function(){
+    
+     
+        //console.log("cloe",clonedObjArray);
+        clonedObjArray.forEach((err,taskslist)=>{
+         Task.find({assignee:clonedObjArray[taskslist].PID,status:"In Progress"})
+         .countDocuments()
+         .exec((err,progress1)=>{
+             
+             clonedObjArray[taskslist].progress= progress1;
+           //   console.log(taskslist,clonedObjArray[taskslist]);
+           //  console.log(clonedObjArray);
+             //return res.json(clonedObjArray);
+         });  
+         Task.find({assignee:clonedObjArray[taskslist].PID,status:"Completed"})
+         .countDocuments()
+         .exec((err,progress2)=>{
+             
+             clonedObjArray[taskslist].completed= progress2;
+           //   console.log(taskslist,clonedObjArray[taskslist]);
+           //   console.log(clonedObjArray);
+             
+         });
+         Task.find({assignee:clonedObjArray[taskslist].PID,status:"Pending"})
+         .countDocuments()
+         .exec((err,progress3)=>{
+             
+             clonedObjArray[taskslist].pending= progress3;
+           //  console.log(taskslist,clonedObjArray[taskslist]);
+           //  console.log(clonedObjArray);
+           timerthree(clonedObjArray,res);
+         });
+        });
+    
+    // },700);
+ }
+ function timerthree(clonedObjArray,res)
+ {
+    setTimeout(function(){
+        //  console.log("Cloned Obj",clonedObjArray);
+        // if(stat)
+        // return res.json('emptyss');
+        // else
+         return res.json(clonedObjArray);
+         console.log("187");
+
+     },1300);
+ }
