@@ -96,7 +96,13 @@ exports.getMembers = function(req,res) {
     console.log("------------------");
 
         console.log(jobid);
-        orgmembers=OrgCtrl.getHMembers(jobid);
+        // orgmembers=OrgCtrl.getHMembers(jobid);
+        OrgCtrl.getHMembers(jobid, function(returnValue) {
+            // use the return value here instead of like a regular (non-evented) return value
+            orgmembers=returnValue;
+        console.log("Orgmembers",returnValue);
+
+          });
         console.log("Orgmembers",orgmembers);
     });
     setTimeout(function(){
@@ -107,12 +113,14 @@ exports.getMembers = function(req,res) {
             stat=1;
         }
         orgmembers.forEach(function(orgmember){
-        console.log("11------------------11");
+    console.log("11------------------11");
 
          console.log(orgmember);
          jobCtrl.findJob(orgmember);          
  });
- }, 6200);
+ }, 1300);
+
+
  setTimeout(function(){
      
     //console.log(jobCtrl.jobArray);
@@ -190,7 +198,7 @@ exports.getMembers = function(req,res) {
          res.json(clonedObjArray);
          console.log("187");
 
-     },1800);
+     },800);
  
  }
        

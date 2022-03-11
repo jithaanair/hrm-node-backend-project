@@ -79,7 +79,7 @@ exports.updateChart = function(req,res) {
     }  
 
 
- exports.getHMembers = function(job){
+ exports.getHMembers = function(job,callback){
     let arr1=new Array();
     let activities=new Array();
     let fromdata;
@@ -188,5 +188,6 @@ exports.updateChart = function(req,res) {
     }
  console.log("line 186");
     
-  return arr1;  
+//   return arr1;
+callback  (arr1);
  }
