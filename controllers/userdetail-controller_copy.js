@@ -255,7 +255,7 @@ function showtasks(){
     setTimeout(function () {
         // console.log("Cloned Obj", clonedObjArray);
         res.json(clonedObjArray);
-    }, 3800);
+    }, 800);
 }
 }
 
