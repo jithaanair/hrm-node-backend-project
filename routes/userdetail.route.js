@@ -1,6 +1,7 @@
 var express = require('express');
 var passport = require('passport');
 var userdetCtrl = require('../controllers/userdetail-controller');
+var userdetCtrl = require('../controllers/userdetail-controller_copy');
 var router = express.Router();
 
 
@@ -9,6 +10,7 @@ router.get('/',passport.authenticate('jwt',{session:false}),userdetCtrl.getUsers
 //router.post('/userdetail',userdetCtrl.addUser);
 //router.get('/',userdetCtrl.getUsers);
 router.get('/members',userdetCtrl.getMembers);
+router.get('/members2',userdetCtrl.getMembers);
 router.get('/members/:id',userdetCtrl.getMemberId);
 // router.post('/login',userdetCtrl.loginUser);
 // router.post('/reset',userdetCtrl.resetUserPw);
