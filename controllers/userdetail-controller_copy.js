@@ -205,7 +205,7 @@ exports.getMembers = function (req, res) {
                 finalfunction();
             });
 
-    }, 300);
+    }, 1300);
 }
 function finalfunction(){
     // setTimeout(function () {
