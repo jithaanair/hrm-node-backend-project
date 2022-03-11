@@ -134,7 +134,7 @@ exports.updateChart = function(req,res) {
               arr1.push(activities[posX][1]);
               indexof3d(activities[posX][1]);
           }
-        //   console.log(pe);
+          console.log(pe);
         // console.log("line 138");
 
         });
@@ -187,6 +187,6 @@ exports.updateChart = function(req,res) {
        // return arr1;
     }
  console.log("line 186");
-    console.log(arr1);
+    console.log(arr1)
   return arr1;  
  }
