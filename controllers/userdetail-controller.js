@@ -107,12 +107,12 @@ exports.getMembers = function(req,res) {
             stat=1;
         }
         orgmembers.forEach(function(orgmember){
-    console.log("11------------------11");
+        console.log("11------------------11");
 
          console.log(orgmember);
          jobCtrl.findJob(orgmember);          
  });
- }, 300);
+ }, 1300);
  setTimeout(function(){
      
     //console.log(jobCtrl.jobArray);
