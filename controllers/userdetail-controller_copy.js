@@ -2,6 +2,8 @@ const Task = require('../model/Task');
 var Userdetail = require('../model/Userdetail');
 var OrgCtrl = require('./orgfromto-controller');
 var jobCtrl = require('./job-controller');
+var Orgfromto = require('../model/Orgfromto');
+
 // exports.addUser = function(req,res) {
 //     let userId = req.user.id;
 //     let newTask = Userdetail(req.body);
@@ -78,7 +80,11 @@ exports.getMembers = function (req, res) {
     var clonedObjArray = new Array();
     var orgmembers = new Array();
     var members = [];
+    let fromdata;
+    let activities = new Array();
 
+    var i, j = 0;
+    var tempString = '';
     var user = req.user.id;
     Userdetail.findById(user)
         .select('jobid')
@@ -86,19 +92,83 @@ exports.getMembers = function (req, res) {
         .exec((err, jid) => {
             jobid = jid.jobid.jname;
             console.log(jobid);
-            orgmembers = OrgCtrl.getHMembers(jobid);
+
+
+
+
+
+            Orgfromto.find()
+            .select('title -_id')
+            .exec((err, org) => {
+                if (err) {
+                    //console.log(err);
+                    return res.status(400).json(err);
+                }
+    
+    
+                for (i = 0; i < org[0].title.length; i++) {
+                    if (org[0].title[i] == ']') {
+                        for (j; j <= i; j++) {
+                            tempString = tempString + org[0].title[j];
+                        }
+                        j = i + 2;
+                        var [a, b] = tempString.split(',');
+                        a = a.replace(/[['"]+/g, '');
+                        b = b.replace(/]+/g, '');
+                        //a=a.replace(/['"]+/g, '');
+                        b = b.replace(/['"]+/g, '');
+                        a = a.trim();
+                        b = b.trim();
+                        console.log("a", a);
+                        console.log("b", b);
+                        activities.push([a, b]);
+                        tempString = '';
+    
+                    }
+                }
+                // console.log("==================activites120");
+                // console.log(activities);
+                // console.log("activites end");
+                //activities=[['MD', 'FD'],['MD', 'DOE'],['DOE', 'PM'],['DOE', 'HRM'],['PM', 'BA'],['PM', 'Eng'],['Eng','Product']];
+                // indexOf2d(activities, job);
+                orgmembers = OrgCtrl.getHMembers(activities, jobid)
+                findeachjob(orgmembers);
+                console.log("==================jobs");
+                console.log(orgmembers);
+                console.log("jobs end");
+            });
+
+
+
+
+
+
+
+
+// orgmembers = OrgCtrl.getHMembers(jobid)
             console.log("Orgmembers", orgmembers);
+
+            // getorgmember();
         });
-    setTimeout(function () {
+
+    // setTimeout(function () {
+        function findeachjob(orgmembers){
+
+        console.log("imhere");
+
         console.log("length", orgmembers);
         if (orgmembers == '') {
             return res.json('');
         }
         orgmembers.forEach(function (orgmember) {
-            console.log(orgmember);
+            // console.log(orgmember);
             jobCtrl.findJob(orgmember);
         });
-    }, 300);
+    }
+    // }, 300);
+
+
+
     setTimeout(function () {
 
         //console.log(jobCtrl.jobArray);
@@ -113,7 +183,7 @@ exports.getMembers = function (req, res) {
                     res.status(400).json(err);
                 }
                 //members.push(memb);
-                console.log("Members", members);
+                // console.log("Members", members);
                 var resultPosts = members.map(function (mem) {
                     // console.log(mem);
                     var tmppost = mem.toObject();
@@ -138,8 +208,8 @@ exports.getMembers = function (req, res) {
                 .exec((err, progress1) => {
 
                     clonedObjArray[taskslist].progress = progress1;
-                    console.log(taskslist, clonedObjArray[taskslist]);
-                    console.log(clonedObjArray);
+                    // console.log(taskslist, clonedObjArray[taskslist]);
+                    // console.log(clonedObjArray);
                     //return res.json(clonedObjArray);
                 });
             Task.find({ assignee: clonedObjArray[taskslist].PID, status: "Completed" })
@@ -147,8 +217,8 @@ exports.getMembers = function (req, res) {
                 .exec((err, progress2) => {
 
                     clonedObjArray[taskslist].completed = progress2;
-                    console.log(taskslist, clonedObjArray[taskslist]);
-                    console.log(clonedObjArray);
+                    // console.log(taskslist, clonedObjArray[taskslist]);
+                    // console.log(clonedObjArray);
 
                 });
             Task.find({ assignee: clonedObjArray[taskslist].PID, status: "Pending" })
@@ -156,8 +226,8 @@ exports.getMembers = function (req, res) {
                 .exec((err, progress3) => {
 
                     clonedObjArray[taskslist].pending = progress3;
-                    console.log(taskslist, clonedObjArray[taskslist]);
-                    console.log(clonedObjArray);
+                    // console.log(taskslist, clonedObjArray[taskslist]);
+                    // console.log(clonedObjArray);
 
                 });
         });
@@ -165,7 +235,7 @@ exports.getMembers = function (req, res) {
     }, 700);
 
     setTimeout(function () {
-        console.log("Cloned Obj", clonedObjArray);
+        // console.log("Cloned Obj", clonedObjArray);
         res.json(clonedObjArray);
     }, 800);
 

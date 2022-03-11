@@ -74,7 +74,7 @@ exports.getMemberId = function (req, res) {
         });
 }
 
-exports.getMembers = function (req, res) {
+exports.getMembers = async function (req, res) {
     var clonedObjArray = new Array();
     var orgmembers = new Array();
     var members = [];
@@ -94,7 +94,7 @@ exports.getMembers = function (req, res) {
             console.log("------------------");
 
             console.log(jobid);
-            orgmembers = OrgCtrl.getHMembers(jobid);
+            orgmembers =  OrgCtrl.getHMembers(jobid);
             console.log("Orgmembers", orgmembers);
         });
     
