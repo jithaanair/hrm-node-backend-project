@@ -188,6 +188,5 @@ exports.updateChart = function(req,res) {
     }
  console.log("line 186");
     
-//   return arr1;
-callback  (arr1);
+  return arr1;  
  }
