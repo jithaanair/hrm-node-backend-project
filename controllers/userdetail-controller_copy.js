@@ -252,10 +252,10 @@ function finalfunction(){
     // }, 700);
 }
 function showtasks(){
-    // setTimeout(function () {
+    setTimeout(function () {
         // console.log("Cloned Obj", clonedObjArray);
         res.json(clonedObjArray);
-    // }, 300);
+    }, 3800);
 }
 }
 
