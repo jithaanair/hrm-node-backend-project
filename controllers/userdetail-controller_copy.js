@@ -155,23 +155,32 @@ exports.getMembers = function (req, res) {
         function findeachjob(orgmembers){
 
         console.log("imhere");
+        console.log("length " + Object.entries(orgmembers).length);
 
         console.log("length", orgmembers);
         if (orgmembers == '') {
             return res.json('');
         }
+        // var i=Object.entries(orgmembers).length;
+        var count=Object.entries(orgmembers).length;
         orgmembers.forEach(function (orgmember) {
             // console.log(orgmember);
+            count=count-1;
+                        console.log("count is"+count);
+
             jobCtrl.findJob(orgmember);
+            if(count<1)
+            arrayofjobs();
         });
     }
     // }, 300);
 
 
+    function arrayofjobs(){
 
     setTimeout(function () {
-
-        //console.log(jobCtrl.jobArray);
+        console.log("this is an array");
+        console.log(jobCtrl.jobArray);
 
 
         Userdetail.find({ jobid: jobCtrl.jobArray })
@@ -193,16 +202,21 @@ exports.getMembers = function (req, res) {
                     return tmppost;
                 });
                 clonedObjArray = [...resultPosts];
+                finalfunction();
             });
 
+    }, 300);
+}
+function finalfunction(){
+    // setTimeout(function () {
 
-    }, 500);
+        var count2=Object.entries(clonedObjArray).length;
 
-    setTimeout(function () {
-
-
-        //console.log("cloe",clonedObjArray);
+        console.log("cloe",clonedObjArray);
+        
         clonedObjArray.forEach((err, taskslist) => {
+            count2=count2-1;
+                        console.log("2count is"+count2);
             Task.find({ assignee: clonedObjArray[taskslist].PID, status: "In Progress" })
                 .countDocuments()
                 .exec((err, progress1) => {
@@ -230,14 +244,18 @@ exports.getMembers = function (req, res) {
                     // console.log(clonedObjArray);
 
                 });
+
+                if(count2<1)
+                showtasks();
         });
-
-    }, 700);
-
+        
+    // }, 700);
+}
+function showtasks(){
     setTimeout(function () {
         // console.log("Cloned Obj", clonedObjArray);
         res.json(clonedObjArray);
-    }, 800);
-
+    }, 3800);
+}
 }
 
