@@ -101,24 +101,25 @@ exports.getMembers = function(req,res) {
             // use the return value here instead of like a regular (non-evented) return value
             orgmembers=returnValue;
         console.log("Orgmembers",returnValue);
+        setTimeout(function(){
+            console.log("length "+Object.entries(orgmembers).length );
+            if (Object.entries(orgmembers).length==0)
+            {
+                console.log("inside 105 000");
+                stat=1;
+            }
+            orgmembers.forEach(function(orgmember){
+        console.log("11------------------11");
+    
+             console.log(orgmember);
+             jobCtrl.findJob(orgmember);          
+     });
+     }, 1300);
 
           });
         console.log("Orgmembers",orgmembers);
     });
-    setTimeout(function(){
-        console.log("length "+Object.entries(orgmembers).length );
-        if (Object.entries(orgmembers).length==0)
-        {
-            console.log("inside 105 000");
-            stat=1;
-        }
-        orgmembers.forEach(function(orgmember){
-    console.log("11------------------11");
-
-         console.log(orgmember);
-         jobCtrl.findJob(orgmember);          
- });
- }, 1300);
+    
 
 
  setTimeout(function(){
