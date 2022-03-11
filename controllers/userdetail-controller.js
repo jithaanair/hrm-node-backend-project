@@ -112,7 +112,7 @@ exports.getMembers = function(req,res) {
          console.log(orgmember);
          jobCtrl.findJob(orgmember);          
  });
- }, 1300);
+ }, 6200);
  setTimeout(function(){
      
     //console.log(jobCtrl.jobArray);
