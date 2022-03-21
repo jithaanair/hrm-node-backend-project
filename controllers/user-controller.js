@@ -39,7 +39,7 @@ exports.addUser = function (req, res)  {
         fname: req.body.fname,
         lname: req.body.lname,
         jobid:"604092d328ed8e265cf46298",
-        avatar:"https://hrmbucket.s3.ap-south-1.amazonaws.com/photos/p11.jpg"
+        avatar:"https://tamam-hr.s3.ap-south-1.amazonaws.com/male.jpg"
       }
       var newins=Userdet(newdet);
       newins.save((error,data)=>{
