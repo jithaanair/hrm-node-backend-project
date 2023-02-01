@@ -10,5 +10,8 @@ module.exports = {
    },
 
    aws_bucket: process.env.S3_BUCKET || 'hrmbucket',
-   mongo_db:"mongodb+srv://hrm:lUwYCCVZdVKc2DB1@hrm.h3zdx.mongodb.net/startup"  
+  // mongo_db:"mongodb+srv://hrm:lUwYCCVZdVKc2DB1@hrm.h3zdx.mongodb.net/startup"  
+  mongo_db:"mongodb://Localhost:27017/hrm-node"
+
+
 };
